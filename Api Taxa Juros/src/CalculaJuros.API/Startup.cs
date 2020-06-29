@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace TaxaJuros.API
+namespace CalculaJuros.API
 {
     public class Startup
     {
@@ -26,6 +27,7 @@ namespace TaxaJuros.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
 
             // Configurando o serviço de documentação do Swagger
@@ -34,9 +36,9 @@ namespace TaxaJuros.API
                 swagger.SwaggerDoc("v1", 
                     new OpenApiInfo 
                     { 
-                        Title = "Taxa Juros API",
+                        Title = "Calcula Juros API",
                         Version = "v1",
-                        Description = "API REST para expor uma taxa de juros criada com o ASP.NET Core",
+                        Description = "API REST para calcular juros criada com o ASP.NET Core",
                         Contact = new OpenApiContact
                         {
                             Name = "Lucas Aguiar",
@@ -49,7 +51,8 @@ namespace TaxaJuros.API
                 string caminhoXmlDoc = vPath.Combine(caminhoAplicacao, $"{nomeAplicacao}.xml");
 
                 swagger.IncludeXmlComments(caminhoXmlDoc);*/
-            });      
+            });            
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +62,7 @@ namespace TaxaJuros.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Taxa Juros API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Calcula Juros API");
                 c.RoutePrefix = string.Empty;
             });
 

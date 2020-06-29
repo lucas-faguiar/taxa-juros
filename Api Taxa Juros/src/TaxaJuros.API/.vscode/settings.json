@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\netcoreapp3.1\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/45ded30c-2c4f-400e-bf6b-58481d11ffc7/resourceGroups/softplan/providers/Microsoft.Web/sites/taxajuros"
+}
