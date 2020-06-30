@@ -45,7 +45,8 @@ namespace CalculaJuros.API.Controllers
             double juros = valorInicial*Math.Pow((1 + taxajuros), meses);
             
             // Formatação da resposta
-            double jurosFormatado = Math.Truncate(100 * juros) / 100;
+            double jurosTruncada = Math.Truncate(juros * 100) / 100;
+            string jurosFormatado = string.Format("{0:N2}", jurosTruncada).Replace('.', ',');
 
             // Retorno
             return Ok(jurosFormatado);
