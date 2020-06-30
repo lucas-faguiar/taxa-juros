@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace TaxaJuros.API
 {
@@ -43,12 +38,6 @@ namespace TaxaJuros.API
                             Url = new Uri("https://github.com/lucas-faguiar")
                         }
                     });
-                    
-                /*string caminhoAplicacao = PlatformServices.Default.Application.ApplicationBasePath;
-                string nomeAplicacao = PlatformServices.Default.Application.ApplicationName;
-                string caminhoXmlDoc = vPath.Combine(caminhoAplicacao, $"{nomeAplicacao}.xml");
-
-                swagger.IncludeXmlComments(caminhoXmlDoc);*/
             });      
         }
 

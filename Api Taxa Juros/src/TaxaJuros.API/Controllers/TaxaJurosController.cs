@@ -21,9 +21,9 @@ namespace TaxaJuros.API.Controllers
         }
 
         [HttpGet]
-        public double Get()
+        public string Get()
         {
-            return TaxaJuros;
+            return String.Format("{0:0.00}", TaxaJuros);
         }
     }
 }
