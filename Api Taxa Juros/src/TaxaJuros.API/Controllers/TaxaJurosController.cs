@@ -23,8 +23,7 @@ namespace TaxaJuros.API.Controllers
         [HttpGet]
         public string Get()
         {
-            double taxaTruncada = Math.Truncate(TaxaJuros * 100) / 100;
-            string resultado = taxaTruncada.ToString().Replace('.', ',');
+            string resultado = TaxaJuros.ToString().Replace('.', ',');
             return resultado;
         }
     }
