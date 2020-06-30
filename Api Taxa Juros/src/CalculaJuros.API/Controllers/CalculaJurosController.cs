@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace CalculaJuros.API.Controllers
                 using (var response = await httpClient.GetAsync("http://taxajuros.azurewebsites.net/taxajuros"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    taxajuros = double.Parse(apiResponse.Replace(',','.'), System.Globalization.CultureInfo.InvariantCulture);
+                    double.TryParse(apiResponse, NumberStyles.Any, CultureInfo.CreateSpecificCulture("pt-BR"), out taxajuros);
                 }
             }
 
@@ -45,8 +46,8 @@ namespace CalculaJuros.API.Controllers
             double juros = valorInicial*Math.Pow((1 + taxajuros), meses);
             
             // Formatação da resposta
-            double jurosTruncada = Math.Truncate(juros * 100) / 100;
-            string jurosFormatado = string.Format("{0:N2}", jurosTruncada).Replace('.', ',');;
+            double jurosTruncado = Math.Truncate(juros * 100) / 100;
+            string jurosFormatado = jurosTruncado.ToString("N", CultureInfo.CreateSpecificCulture("pt-BR"));
 
             // Retorno
             return Ok(jurosFormatado);

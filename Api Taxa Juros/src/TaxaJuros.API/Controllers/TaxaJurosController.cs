@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,7 +24,7 @@ namespace TaxaJuros.API.Controllers
         [HttpGet]
         public string Get()
         {
-            string resultado = TaxaJuros.ToString().Replace('.', ',');
+            string resultado = TaxaJuros.ToString("G", CultureInfo.CreateSpecificCulture("pt-BR")); //.Replace('.', ',');
             return resultado;
         }
     }
