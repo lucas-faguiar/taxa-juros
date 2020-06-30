@@ -37,7 +37,7 @@ namespace CalculaJuros.API.Controllers
                 using (var response = await httpClient.GetAsync("http://taxajuros.azurewebsites.net/taxajuros"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    taxajuros = Convert.ToDouble(apiResponse);
+                    taxajuros = double.Parse(apiResponse.Replace(',','.'), System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
@@ -46,7 +46,7 @@ namespace CalculaJuros.API.Controllers
             
             // Formatação da resposta
             double jurosTruncada = Math.Truncate(juros * 100) / 100;
-            string jurosFormatado = string.Format("{0:N2}", jurosTruncada).Replace('.', ',');
+            string jurosFormatado = string.Format("{0:N2}", jurosTruncada).Replace('.', ',');;
 
             // Retorno
             return Ok(jurosFormatado);
