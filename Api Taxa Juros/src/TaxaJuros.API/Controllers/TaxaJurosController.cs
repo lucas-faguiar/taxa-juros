@@ -24,7 +24,7 @@ namespace TaxaJuros.API.Controllers
         [HttpGet]
         public string Get()
         {
-            string resultado = TaxaJuros.ToString("G", CultureInfo.CreateSpecificCulture("pt-BR")); //.Replace('.', ',');
+            string resultado = TaxaJuros.ToString("G", CultureInfo.CreateSpecificCulture("pt-BR"));
             return resultado;
         }
     }
