@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using CalculaJuros.API.Interfaces;
+using CalculaJuros.API.Services;
 
 namespace CalculaJuros.API
 {
@@ -44,14 +46,11 @@ namespace CalculaJuros.API
                             Name = "Lucas Aguiar",
                             Url = new Uri("https://github.com/lucas-faguiar")
                         }
-                    });
-                    
-                /*string caminhoAplicacao = PlatformServices.Default.Application.ApplicationBasePath;
-                string nomeAplicacao = PlatformServices.Default.Application.ApplicationName;
-                string caminhoXmlDoc = vPath.Combine(caminhoAplicacao, $"{nomeAplicacao}.xml");
+                    });                    
+            });       
 
-                swagger.IncludeXmlComments(caminhoXmlDoc);*/
-            });            
+            // DI COnfiguration
+            services.AddScoped<IJurosService, JurosService>();     
           
         }
 

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Globalization;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using CalculaJuros.API.Interfaces;
 
 namespace CalculaJuros.API.Controllers
 {
@@ -13,10 +12,15 @@ namespace CalculaJuros.API.Controllers
     public class CalculaJurosController : ControllerBase
     {
         private readonly ILogger<CalculaJurosController> _logger;
+        private readonly IJurosService _jurosService;
 
-        public CalculaJurosController(ILogger<CalculaJurosController> logger)
+        public CalculaJurosController(
+            ILogger<CalculaJurosController> logger,
+            IJurosService jurosService
+        )
         {
             _logger = logger;
+            _jurosService = jurosService;
         }
 
         [HttpGet]
@@ -31,23 +35,14 @@ namespace CalculaJuros.API.Controllers
             if(erros.Count > 0) 
                 return BadRequest(erros);
 
-            // Obtém taxa de juros
-            double taxajuros = 0.0;            
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("http://taxajuros.azurewebsites.net/taxajuros"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    double.TryParse(apiResponse, NumberStyles.Any, CultureInfo.CreateSpecificCulture("pt-BR"), out taxajuros);
-                }
-            }
+            // Serviço para obter taxa de juros
+            double taxaJuros = await _jurosService.ObtemTaxaJuros();  
 
-            // Cálculo do juros
-            double juros = valorInicial*Math.Pow((1 + taxajuros), meses);
-            
-            // Formatação da resposta
-            double jurosTruncado = Math.Truncate(juros * 100) / 100;
-            string jurosFormatado = jurosTruncado.ToString("N", CultureInfo.CreateSpecificCulture("pt-BR"));
+            // Serviço para calcular juros
+            double juros = _jurosService.CalculaJuros(valorInicial, meses, taxaJuros);   
+
+            // Serviço para formatar juros
+            string jurosFormatado = _jurosService.FormataJuros(juros);     
 
             // Retorno
             return Ok(jurosFormatado);
