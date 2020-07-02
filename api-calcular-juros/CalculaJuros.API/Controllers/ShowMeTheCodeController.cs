@@ -18,7 +18,7 @@ namespace ShowMeTheCode.API.Controllers
         public IActionResult Get()
         {
             // Url do código fonte
-            string url = "https://github.com/lucas-faguiar/taxa-juros/tree/master/Api%20Taxa%20Juros/src";
+            string url = "https://github.com/lucas-faguiar/taxa-juros";
 
             // Retorno
             return Ok(url);
