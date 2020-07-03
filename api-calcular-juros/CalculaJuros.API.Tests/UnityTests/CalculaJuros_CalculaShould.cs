@@ -21,7 +21,7 @@ namespace CalculaJuros.API.Tests
             var response = await _jurosService.ObtemTaxaJuros();
         
             // Assert
-            Assert.Equal(response, 0.01);
+            Assert.Equal(0.01, response);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace CalculaJuros.API.Tests
             var response = _jurosService.CalculaJuros(valorInicial, meses, taxaJuros);
         
             // Assert
-            Assert.Equal(response, 105.10100501000001);
+            Assert.Equal(105.10100501000001, response);
         }
 
         [Fact]
